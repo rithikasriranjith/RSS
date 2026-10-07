@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Shakthiii ♡</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    min-height:100vh;
+    overflow:hidden;
+    font-family:Segoe UI,sans-serif;
+    color:white;
+    background:
+    radial-gradient(circle at 50% 20%,#4a3260,transparent 35%),
+    linear-gradient(180deg,#090713,#171022);
+}
+
+.stars{
+    position:fixed;
+    inset:0;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+    from{opacity:.2}
+    to{opacity:1}
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:25px;
+}
+
+.heart{
+    font-size:65px;
+    animation:beat 1.5s infinite;
+}
+
+@keyframes beat{
+    50%{transform:scale(1.15)}
+}
+
+.small{
+    letter-spacing:4px;
+    text-transform:uppercase;
+    color:#e4b9ff;
+    font-size:13px;
+    margin:20px 0 12px;
+}
+
+h1{
+    font-size:clamp(40px,8vw,75px);
+    margin-bottom:15px;
+}
+
+p{
+    max-width:550px;
+    color:#d8d0df;
+    line-height:1.8;
+}
+
+button{
+    margin-top:35px;
+    border:0;
+    padding:16px 30px;
+    border-radius:40px;
+    font-weight:bold;
+    font-size:15px;
+    cursor:pointer;
+    background:linear-gradient(135deg,#f3b5ff,#ffd49b);
+    color:#29152f;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.07);
+    box-shadow:0 0 35px #d997ff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="container">
+
+    <div class="heart">♡</div>
+
+    <div class="small">A little birthday world</div>
+
+    <h1>Hey, Shakthiii ✨</h1>
+
+    <p>
+        I made a tiny little world for you.
+        <br>
+        You won't know what's waiting ahead...
+        so just keep going.
+        ♡
+    </p>
+
+    <button onclick="nextPage()">
+        Enter your little world ✨
+    </button>
+
+</div>
+
+<script>
+for(let i=0;i<120;i++){
+    let s=document.createElement("div");
+    s.className="star";
+    s.style.left=Math.random()*100+"%";
+    s.style.top=Math.random()*100+"%";
+    s.style.animationDelay=Math.random()*3+"s";
+    document.getElementById("stars").appendChild(s);
+}
+
+function nextPage(){
+    document.body.style.transition="opacity 1s";
+    document.body.style.opacity="0";
+
+    setTimeout(()=>{
+        location.href="sky.html";
+    },1000);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Little House 🏡</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    overflow: hidden;
+    background: linear-gradient(
+        to bottom,
+        #161633 0%,
+        #292955 48%,
+        #6f6485 100%
+    );
+}
+
+/* Sky */
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Moon */
+.moon {
+    position: absolute;
+    top: 8%;
+    right: 12%;
+    width: 90px;
+    height: 90px;
+    background: #fff4c7;
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255,244,199,.45);
+}
+
+/* Hills */
+.hill {
+    position: absolute;
+    bottom: 25%;
+    width: 80%;
+    height: 35%;
+    background: #232642;
+    border-radius: 50% 50% 0 0;
+}
+
+.hill.one {
+    left: -30%;
+}
+
+.hill.two {
+    right: -30%;
+    background: #1c2038;
+}
+
+/* Ground */
+.ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30%;
+    background:
+        radial-gradient(circle at 20% 20%, #3e5946 0 3px, transparent 4px),
+        radial-gradient(circle at 70% 40%, #4d674d 0 3px, transparent 4px),
+        linear-gradient(to bottom, #304938, #18291f);
+}
+
+/* Cottage */
+.house {
+    position: absolute;
+    bottom: 23%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(470px, 80vw);
+    height: 360px;
+}
+
+/* House body */
+.body {
+    position: absolute;
+    bottom: 0;
+    left: 8%;
+    width: 84%;
+    height: 230px;
+    border-radius: 8px 8px 20px 20px;
+    background:
+        linear-gradient(90deg,
+            #c98269,
+            #e0a078 45%,
+            #c87864
+        );
+    box-shadow:
+        inset 0 -15px 20px rgba(80,30,30,.18),
+        0 25px 40px rgba(0,0,0,.25);
+}
+
+/* Roof */
+.roof {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: #542f45;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    filter: drop-shadow(0 12px 8px rgba(0,0,0,.3));
+}
+
+.roof::after {
+    content: "";
+    position: absolute;
+    inset: 25px 50px 0;
+    background: #704052;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+/* Chimney */
+.chimney {
+    position: absolute;
+    top: 30px;
+    right: 75px;
+    width: 45px;
+    height: 100px;
+    background: #6b3b43;
+    z-index: 2;
+}
+
+.chimney::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: -5px;
+    width: 55px;
+    height: 12px;
+    background: #492c39;
+}
+
+/* Smoke */
+.smoke {
+    position: absolute;
+    top: 5px;
+    right: 60px;
+    font-size: 35px;
+    opacity: .35;
+    animation: smoke 4s infinite ease-in-out;
+}
+
+@keyframes smoke {
+    0%,100% { transform: translateY(0); opacity: .15; }
+    50% { transform: translateY(-25px) translateX(10px); opacity: .4; }
+}
+
+/* Windows */
+.window {
+    position: absolute;
+    width: 75px;
+    height: 80px;
+    top: 80px;
+    background: #ffeeb0;
+    border: 7px solid #673c3c;
+    border-radius: 8px;
+    box-shadow: 0 0 25px rgba(255,222,130,.55);
+}
+
+.window::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    background: #673c3c;
+    transform: translateX(-50%);
+}
+
+.window::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: #673c3c;
+    transform: translateY(-50%);
+}
+
+.window.left {
+    left: 55px;
+}
+
+.window.right {
+    right: 55px;
+}
+
+/* Door */
+.door {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90px;
+    height: 145px;
+    border: 5px solid #4b2c35;
+    border-bottom: none;
+    background: linear-gradient(90deg, #58333b, #75434a);
+    border-radius: 45px 45px 0 0;
+    cursor: pointer;
+    z-index: 5;
+    transition: transform .8s ease;
+    transform-origin: left center;
+    box-shadow: inset 8px 0 15px rgba(0,0,0,.2);
+}
+
+.door::before {
+    content: "✦";
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffd978;
+    font-size: 20px;
+}
+
+.knob {
+    position: absolute;
+    right: 12px;
+    top: 75px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #ffd56a;
+    box-shadow: 0 0 8px #ffd56a;
+}
+
+.door.open {
+    transform: translateX(-50%) rotateY(-75deg);
+}
+
+/* Door glow */
+.door-light {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 105px;
+    height: 145px;
+    transform: translateX(-50%);
+    background: #ffe7a3;
+    opacity: 0;
+    box-shadow: 0 0 50px #ffd978;
+    transition: opacity .5s;
+}
+
+.door-light.show {
+    opacity: .8;
+}
+
+/* Steps */
+.steps {
+    position: absolute;
+    bottom: -17px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 145px;
+    height: 35px;
+    background: #9b8177;
+    border-radius: 5px;
+}
+
+/* Path */
+.path {
+    position: absolute;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 170px;
+    height: 170px;
+    background: #887568;
+    clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%);
+    opacity: .8;
+}
+
+/* Bushes */
+.bush {
+    position: absolute;
+    bottom: 23%;
+    width: 100px;
+    height: 65px;
+    background: #1d392a;
+    border-radius: 50%;
+}
+
+.bush.left {
+    left: 8%;
+}
+
+.bush.right {
+    right: 8%;
+}
+
+/* Flowers */
+.flower {
+    position: absolute;
+    bottom: 27%;
+    font-size: 25px;
+}
+
+.f1 { left: 15%; }
+.f2 { left: 22%; }
+.f3 { right: 18%; }
+.f4 { right: 25%; }
+
+/* Fireflies */
+.firefly {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #ffe58b;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #ffe58b;
+    animation: fly 3s infinite alternate ease-in-out;
+}
+
+.fy1 { left: 20%; bottom: 45%; }
+.fy2 { left: 75%; bottom: 55%; animation-delay: 1s; }
+.fy3 { left: 60%; bottom: 35%; animation-delay: 1.8s; }
+
+@keyframes fly {
+    from { transform: translate(0,0); opacity: .3; }
+    to { transform: translate(20px,-30px); opacity: 1; }
+}
+
+/* Text */
+.title {
+    position: absolute;
+    top: 7%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    z-index: 10;
+    padding: 0 20px;
+}
+
+.title h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    margin-bottom: 10px;
+    text-shadow: 0 4px 20px rgba(0,0,0,.4);
+}
+
+.title p {
+    color: #ddd9ff;
+    font-size: 1rem;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(8,8,25,.72);
+    backdrop-filter: blur(8px);
+}
+
+.card {
+    width: min(90%, 430px);
+    padding: 40px 25px;
+    border-radius: 30px;
+    background: linear-gradient(145deg,#fff,#f4e9ff);
+    text-align: center;
+    color: #292344;
+    box-shadow: 0 20px 80px rgba(0,0,0,.4);
+}
+
+.card h2 {
+    margin-bottom: 15px;
+}
+
+.card p {
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.next {
+    border: none;
+    padding: 14px 28px;
+    border-radius: 30px;
+    background: #754b8f;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene">
+
+    <div class="moon"></div>
+
+    <div class="hill one"></div>
+    <div class="hill two"></div>
+
+    <div class="ground"></div>
+
+    <div class="path"></div>
+
+    <div class="bush left"></div>
+    <div class="bush right"></div>
+
+    <div class="flower f1">🌷</div>
+    <div class="flower f2">🌼</div>
+    <div class="flower f3">🌸</div>
+    <div class="flower f4">🌷</div>
+
+    <div class="firefly fy1"></div>
+    <div class="firefly fy2"></div>
+    <div class="firefly fy3"></div>
+
+    <div class="title">
+        <h1>A Little House of Memories 🏡</h1>
+        <p>Somewhere inside this tiny house, a few memories are waiting for you...</p>
+    </div>
+
+    <div class="house">
+
+        <div class="smoke">☁️</div>
+
+        <div class="chimney"></div>
+
+        <div class="roof"></div>
+
+        <div class="body">
+
+            <div class="window left"></div>
+            <div class="window right"></div>
+
+            <div class="door-light" id="doorLight"></div>
+
+            <div class="door" id="door">
+                <div class="knob"></div>
+            </div>
+
+            <div class="steps"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal" id="modal">
+    <div class="card">
+
+        <h2>🚪 Welcome inside...</h2>
+
+        <p>
+            Every little house needs a few beautiful memories.
+            <br><br>
+            And I think we have quite a few of them. ❤️
+        </p>
+
+        <button class="next" onclick="goNext()">
+            Open the memories →
+        </button>
+
+    </div>
+</div>
+
+<script>
+
+const door = document.getElementById("door");
+const doorLight = document.getElementById("doorLight");
+const modal = document.getElementById("modal");
+
+let opened = false;
+
+door.addEventListener("click", function() {
+
+    if (opened) return;
+
+    opened = true;
+
+    doorLight.classList.add("show");
+    door.classList.add("open");
+
+    setTimeout(() => {
+        modal.style.display = "flex";
+    }, 800);
+
+});
+
+function goNext() {
+    window.location.href = "memories.html";
+}
+
+</script>
+
+</body>
+</html>

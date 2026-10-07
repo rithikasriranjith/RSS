@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catch the Star ✨</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+    font-family: "Segoe UI", sans-serif;
+    background:
+        radial-gradient(circle at 50% 20%, #303b7a 0%, #151936 42%, #070817 100%);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sky {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+}
+
+/* Stars */
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 10px white;
+    animation: twinkle 2s infinite alternate;
+}
+
+.s1 { top: 12%; left: 15%; }
+.s2 { top: 23%; left: 72%; animation-delay: .5s; }
+.s3 { top: 42%; left: 30%; animation-delay: 1s; }
+.s4 { top: 17%; left: 88%; animation-delay: .8s; }
+.s5 { top: 65%; left: 78%; animation-delay: .3s; }
+.s6 { top: 73%; left: 18%; animation-delay: 1.2s; }
+.s7 { top: 52%; left: 55%; animation-delay: .6s; }
+.s8 { top: 33%; left: 92%; animation-delay: 1.4s; }
+
+@keyframes twinkle {
+    from { opacity: .2; transform: scale(.7); }
+    to { opacity: 1; transform: scale(1.4); }
+}
+
+/* Moon */
+.moon {
+    position: absolute;
+    top: 8%;
+    right: 10%;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: #fff6c7;
+    box-shadow: 0 0 40px rgba(255,246,199,.5);
+}
+
+.moon::after {
+    content: "";
+    position: absolute;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: #20244b;
+    left: 28px;
+    top: -10px;
+}
+
+/* Main content */
+.content {
+    position: relative;
+    z-index: 5;
+    text-align: center;
+    padding: 25px;
+}
+
+.small {
+    font-size: 1rem;
+    letter-spacing: 4px;
+    color: #cfd5ff;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    margin-bottom: 15px;
+    text-shadow: 0 0 25px rgba(255,255,255,.25);
+}
+
+.date {
+    font-size: clamp(1.2rem, 4vw, 1.7rem);
+    color: #ffd9ef;
+    letter-spacing: 8px;
+    margin-bottom: 30px;
+}
+
+.instruction {
+    font-size: 1rem;
+    color: #dce0ff;
+    max-width: 500px;
+    margin: auto;
+}
+
+/* BIG TOUCHABLE SHOOTING STAR */
+.shooting-hit {
+    position: absolute;
+    top: 38%;
+    left: -130px;
+
+    width: 125px;
+    height: 125px;
+
+    border: none;
+    outline: none;
+    background: transparent;
+
+    z-index: 20;
+    cursor: pointer;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+
+    animation: shoot 5s linear infinite;
+}
+
+.shooting-hit span {
+    display: block;
+    font-size: 48px;
+    transform: rotate(-25deg);
+    filter: drop-shadow(0 0 12px #fff);
+    pointer-events: none;
+}
+
+.shooting-hit::before {
+    content: "";
+    position: absolute;
+    width: 95px;
+    height: 4px;
+    right: 65px;
+    top: 60px;
+    background: linear-gradient(to left, white, transparent);
+    transform: rotate(-25deg);
+    filter: blur(2px);
+    pointer-events: none;
+}
+
+@keyframes shoot {
+    0% {
+        left: -140px;
+        top: 38%;
+        opacity: 0;
+    }
+
+    8% {
+        opacity: 1;
+    }
+
+    45% {
+        opacity: 1;
+    }
+
+    100% {
+        left: calc(100% + 80px);
+        top: 65%;
+        opacity: 0;
+    }
+}
+
+/* Message */
+.wish-message {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(5,6,20,.75);
+    backdrop-filter: blur(8px);
+}
+
+.wish-box {
+    width: min(90%, 450px);
+    padding: 40px 25px;
+    border-radius: 30px;
+    text-align: center;
+    background: linear-gradient(145deg, #ffffff, #f5eaff);
+    color: #25234a;
+    box-shadow: 0 0 60px rgba(255,255,255,.25);
+}
+
+.wish-box h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.wish-box p {
+    margin-bottom: 25px;
+}
+
+.next-btn {
+    border: none;
+    padding: 14px 30px;
+    border-radius: 30px;
+    background: #6f5acb;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sky">
+
+    <div class="star s1"></div>
+    <div class="star s2"></div>
+    <div class="star s3"></div>
+    <div class="star s4"></div>
+    <div class="star s5"></div>
+    <div class="star s6"></div>
+    <div class="star s7"></div>
+    <div class="star s8"></div>
+
+    <div class="moon"></div>
+
+    <!-- Large invisible touch area -->
+    <button class="shooting-hit" id="shootingStar" aria-label="Catch the shooting star">
+        <span>🌠</span>
+    </button>
+
+    <div class="content">
+        <div class="small">A LITTLE BIRTHDAY MAGIC</div>
+
+        <h1>10 • 10 • 2007</h1>
+
+        <div class="date">
+            THE DAY MY FAVORITE PERSON WAS BORN
+        </div>
+
+        <p class="instruction">
+            A shooting star is passing by... ✨<br>
+            Tap it before it disappears.
+        </p>
+    </div>
+</div>
+
+<div class="wish-message" id="wishMessage">
+    <div class="wish-box">
+        <h2>✨ You caught it! ✨</h2>
+
+        <p>
+            Maybe it wasn't just a shooting star...
+            <br><br>
+            Maybe it was the universe telling me
+            that meeting you was my lucky wish. ❤️
+        </p>
+
+        <button class="next-btn" onclick="goNext()">
+            Follow the star →
+        </button>
+    </div>
+</div>
+
+<script>
+const shootingStar = document.getElementById("shootingStar");
+const wishMessage = document.getElementById("wishMessage");
+
+let caught = false;
+
+function catchStar(e) {
+    if (caught) return;
+
+    caught = true;
+
+    if (e) e.preventDefault();
+
+    shootingStar.style.animation = "none";
+    shootingStar.style.transform = "scale(1.5)";
+    shootingStar.style.opacity = "0";
+
+    setTimeout(() => {
+        wishMessage.style.display = "flex";
+    }, 400);
+}
+
+shootingStar.addEventListener("pointerdown", catchStar);
+
+function goNext() {
+    window.location.href = "house.html";
+}
+</script>
+
+</body>
+</html>

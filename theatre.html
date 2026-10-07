@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Little Theatre 🎬</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", sans-serif;
+    background:
+        radial-gradient(circle at 50% 30%, #4b142b 0%, #210c19 45%, #09050a 100%);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* Theatre */
+.theatre {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ceiling lights */
+.ceiling-lights {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.ceiling-lights span {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #ffe8a2;
+    box-shadow: 0 0 15px #ffe8a2;
+}
+
+/* Title */
+.title {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 50px 20px 20px;
+}
+
+.title h1 {
+    font-family: Georgia, serif;
+    font-size: clamp(2.2rem, 7vw, 4rem);
+    color: #ffe7a6;
+    text-shadow: 0 0 20px rgba(255,205,100,.35);
+}
+
+.title p {
+    margin-top: 8px;
+    color: #e5bdcb;
+}
+
+/* Marquee */
+.marquee {
+    width: min(600px, 85vw);
+    margin: 15px auto;
+    padding: 10px 20px;
+    border: 2px solid #e4ad55;
+    border-radius: 8px;
+    background: #190711;
+    color: #ffe29a;
+    text-align: center;
+    letter-spacing: 5px;
+    font-size: .8rem;
+    box-shadow: 0 0 20px rgba(228,173,85,.15);
+}
+
+/* Screen area */
+.stage {
+    position: relative;
+    width: min(850px, 94vw);
+    height: min(55vw, 470px);
+    min-height: 320px;
+    margin: 20px auto 0;
+    background: #160b12;
+    border-radius: 20px 20px 0 0;
+    border: 8px solid #321221;
+    box-shadow:
+        0 0 60px rgba(0,0,0,.7),
+        inset 0 0 30px rgba(0,0,0,.8);
+    overflow: hidden;
+}
+
+/* Screen */
+.screen {
+    position: absolute;
+    left: 15%;
+    top: 10%;
+    width: 70%;
+    height: 57%;
+    border-radius: 6px;
+    background:
+        radial-gradient(circle at 50% 40%, #fff8d6, #ffd9a1 35%, #b65e75 100%);
+    box-shadow:
+        0 0 40px rgba(255,209,150,.3),
+        inset 0 0 35px rgba(255,255,255,.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(90deg,
+        transparent,
+        rgba(255,255,255,.15),
+        transparent);
+    transform: translateX(-100%);
+    animation: projector 5s infinite;
+}
+
+@keyframes projector {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+.screen-content {
+    position: relative;
+    z-index: 2;
+    opacity: .95;
+}
+
+.screen-content .heart {
+    font-size: clamp(3rem, 10vw, 6rem);
+    animation: heartbeat 1.5s infinite;
+}
+
+.screen-content h2 {
+    font-family: Georgia, serif;
+    font-size: clamp(1.3rem, 4vw, 2.4rem);
+    color: #542038;
+}
+
+.screen-content p {
+    color: #653247;
+    margin-top: 5px;
+}
+
+@keyframes heartbeat {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}
+
+/* Stage floor */
+.stage-floor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 27%;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #381222 0 70px,
+            #2a0d1b 70px 140px
+        );
+    border-top: 8px solid #6d3446;
+}
+
+/* Curtains */
+.curtain {
+    position: absolute;
+    top: 0;
+    width: 34%;
+    height: 88%;
+    z-index: 5;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #4a071c 0 20px,
+            #700c2c 20px 40px,
+            #3d0618 40px 60px
+        );
+    box-shadow: 0 15px 40px rgba(0,0,0,.5);
+    transition: transform 1.5s cubic-bezier(.7,0,.2,1);
+}
+
+.curtain.left {
+    left: 0;
+    border-radius: 0 0 60% 0;
+    transform-origin: left top;
+}
+
+.curtain.right {
+    right: 0;
+    border-radius: 0 0 0 60%;
+    transform-origin: right top;
+}
+
+/* Curtain gold trim */
+.curtain::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 18px;
+    background: #d5a14e;
+    box-shadow: 0 0 12px rgba(213,161,78,.4);
+}
+
+.curtain.open.left {
+    transform: translateX(-88%);
+}
+
+.curtain.open.right {
+    transform: translateX(88%);
+}
+
+/* Curtain top valance */
+.valance {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    width: 60%;
+    height: 65px;
+    z-index: 7;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #520720 0 30px,
+            #790b2c 30px 60px
+        );
+    border-radius: 0 0 50% 50%;
+    border-bottom: 8px solid #d5a14e;
+    transition: transform 1.5s ease;
+}
+
+.valance.open {
+    transform: translateY(-100%);
+}
+
+/* Seats */
+.seats {
+    position: absolute;
+    bottom: 2%;
+    left: 5%;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+    z-index: 10;
+}
+
+.seat {
+    width: 55px;
+    height: 55px;
+    border-radius: 12px 12px 8px 8px;
+    background: #701533;
+    border: 4px solid #3e0a1c;
+    box-shadow: inset 0 -10px 0 rgba(0,0,0,.2);
+}
+
+/* Popcorn */
+.popcorn {
+    position: absolute;
+    right: 5%;
+    bottom: 8%;
+    z-index: 15;
+    font-size: clamp(2rem, 6vw, 4rem);
+    transform: rotate(8deg);
+    animation: popcorn 2s infinite ease-in-out;
+}
+
+@keyframes popcorn {
+    0%,100% { transform: rotate(8deg) translateY(0); }
+    50% { transform: rotate(-4deg) translateY(-8px); }
+}
+
+/* Button */
+.controls {
+    position: relative;
+    z-index: 20;
+    text-align: center;
+    margin: 25px auto;
+}
+
+button {
+    border: none;
+    padding: 15px 32px;
+    border-radius: 40px;
+    background: linear-gradient(135deg,#d6a34f,#f0c76f);
+    color: #321222;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0,0,0,.3);
+    transition: transform .2s;
+}
+
+button:hover {
+    transform: translateY(-3px);
+}
+
+.continue {
+    display: none;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+
+    .title {
+        padding-top: 40px;
+    }
+
+    .stage {
+        height: 400px;
+    }
+
+    .screen {
+        top: 15%;
+        height: 45%;
+    }
+
+    .curtain {
+        height: 78%;
+    }
+
+    .seat {
+        width: 38px;
+        height: 42px;
+    }
+
+    .popcorn {
+        right: 2%;
+        bottom: 10%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="theatre">
+
+    <div class="ceiling-lights">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="title">
+        <h1>Our Little Theatre 🎬</h1>
+        <p>One special memory deserves its own movie screen.</p>
+    </div>
+
+    <div class="marquee">
+        ✦ THE SHAKTHIII & RITHIKASRI STORY ✦
+    </div>
+
+    <div class="stage">
+
+        <div class="screen">
+
+            <div class="screen-content">
+                <div class="heart">❤️</div>
+                <h2>A Story I Never Want To End</h2>
+                <p>Starring: You & Me</p>
+            </div>
+
+        </div>
+
+        <div class="stage-floor"></div>
+
+        <div class="curtain left" id="leftCurtain"></div>
+        <div class="curtain right" id="rightCurtain"></div>
+        <div class="valance" id="valance"></div>
+
+        <div class="seats">
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+            <div class="seat"></div>
+        </div>
+
+        <div class="popcorn">🍿</div>
+
+    </div>
+
+    <div class="controls">
+
+        <button id="startBtn" onclick="openCurtains()">
+            🎬 START THE MOVIE
+        </button>
+
+        <button
+            class="continue"
+            id="continueBtn"
+            onclick="goNext()">
+            Continue the story →
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+function openCurtains() {
+
+    document.getElementById("leftCurtain")
+        .classList.add("open");
+
+    document.getElementById("rightCurtain")
+        .classList.add("open");
+
+    document.getElementById("valance")
+        .classList.add("open");
+
+    document.getElementById("startBtn").style.display = "none";
+
+    setTimeout(() => {
+
+        document.getElementById("continueBtn")
+            .style.display = "inline-block";
+
+    }, 1600);
+}
+
+function goNext() {
+    window.location.href = "garden.html";
+}
+
+</script>
+
+</body>
+</html>

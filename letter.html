@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>A Letter For You 💌</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    min-height:100vh;
+    font-family:Georgia,serif;
+    background:
+    radial-gradient(circle,#593d4e,#21151f 60%,#0d090d);
+    color:#30222b;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:25px;
+}
+
+.letter{
+    width:min(700px,95vw);
+    min-height:650px;
+    padding:55px clamp(25px,7vw,70px);
+    background:#fff1d5;
+    box-shadow:0 25px 80px #0008;
+    transform:rotate(-1deg);
+    position:relative;
+}
+
+.letter::before{
+    content:"";
+    position:absolute;
+    inset:15px;
+    border:1px solid #c9a77e;
+    pointer-events:none;
+}
+
+.small{
+    text-align:center;
+    color:#9b6f72;
+    letter-spacing:3px;
+    font-size:12px;
+    margin-bottom:25px;
+}
+
+h1{
+    text-align:center;
+    font-size:clamp(35px,7vw,55px);
+    margin-bottom:35px;
+}
+
+.text{
+    font-size:17px;
+    line-height:2;
+}
+
+.signature{
+    margin-top:35px;
+    text-align:right;
+    font-size:22px;
+}
+
+button{
+    display:block;
+    margin:40px auto 0;
+    border:0;
+    padding:14px 28px;
+    border-radius:30px;
+    background:#a96f83;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+@media(max-width:600px){
+    .letter{
+        min-height:auto;
+        padding:45px 25px;
+    }
+
+    .text{
+        font-size:15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="letter">
+
+    <div class="small">
+        A LETTER I WANTED YOU TO READ
+    </div>
+
+    <h1>To my Chellooo ♡</h1>
+
+    <div class="text">
+
+        <p>
+            Happy Birthday to my favourite person. 🥹
+        </p>
+
+        <br>
+
+        <p>
+            I don't know if words can actually explain
+            how much you mean to me, but I still wanted
+            to try.
+        </p>
+
+        <br>
+
+        <p>
+            Thank you for all the little moments,
+            the laughs, the silly conversations,
+            the memories and even the completely
+            random things that somehow became special
+            because they happened with you.
+        </p>
+
+        <br>
+
+        <p>
+            I hope this new year of your life brings
+            you everything you've been wishing for.
+            I hope you keep smiling, keep growing,
+            and keep being the wonderful,
+            slightly crazy person that you are. 😂
+        </p>
+
+        <br>
+
+        <p>
+            And selfishly...
+            I hope I get to be there for
+            many more of your birthdays.
+        </p>
+
+    </div>
+
+    <div class="signature">
+        With lots of love,<br>
+        Rithikasri ♡
+    </div>
+
+    <button onclick="nextPage()">
+        There's one last secret... 🔐
+    </button>
+
+</div>
+
+<script>
+function nextPage(){
+    location.href="secret.html";
+}
+</script>
+
+</body>
+</html>
